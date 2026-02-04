@@ -43,10 +43,7 @@ public class Student2D {
 		    int avg=0;
 			for (int j=0;j<studentMarks[0].length;j++)
 			{
-				
-				total+=studentMarks[i][j];
-				
-				
+			total+=studentMarks[i][j];
 			}
 		    avg=total/studentMarks[0].length;
 			System.out.println("Average marks of student "+(student+1)+": "+avg);
