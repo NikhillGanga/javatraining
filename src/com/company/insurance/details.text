@@ -1,0 +1,48 @@
+An online food delivery platform offers different types of food orders such as 
+Restaurant Orders, Cloud Kitchen Orders, and Grocery Orders.
+Each order type follows different pricing rules for calculating the final payable amount.
+To keep the system flexible and easy to extend, the platform wants to design the 
+solution using Java interfaces.
+
+Create an interface Order with the following methods:
+double calculateFinalAmount()
+String getOrderDetails()
+
+Restaurant Order
+===============
+Inputs
+    Customer Name
+    Order Amount
+    GST Percentage
+    
+Pricing Rules
+    GST is applied on the order amount
+    Final Amount = Order Amount + GST
+    
+Cloud Kitchen Order
+=================
+Inputs
+    Customer Name
+    Order Amount
+    Delivery Distance (in km)
+
+Pricing Rules
+========
+Delivery charge:
+    Up to 5 km → ₹30
+    Above 5 km → ₹60
+    Final Amount = Order Amount + Delivery Charge    
+    
+Grocery Order
+======
+Inputs
+    Customer Name
+    Order Amount
+    Is Membership Holder (true / false)
+
+Pricing Rules
+    If customer is a member:
+    Apply 10% discount
+    Otherwise:
+        No discount
+        Final Amount = Order Amount – Discount
