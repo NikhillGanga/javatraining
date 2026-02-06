@@ -37,7 +37,10 @@ public class Driver {
                     int value = s.nextInt();
                    account.withdraw(value);
                     break;
-                } catch (InputMismatchException e) {
+                } catch(InsufficientBalanceException e){
+                	System.err.println(e.getMessage());
+                }
+                catch (InputMismatchException  e) {
                     System.err.println("Please enter numbers only!");
                     s.next();
                 }
