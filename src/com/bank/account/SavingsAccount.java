@@ -15,8 +15,8 @@ public class SavingsAccount extends Account {
     @Override
     public void withdraw(int amount) {
     	if(balance-amount<=1000) {
-    		System.err.println("Your Minimum balance is less than 1000");
-    		return;
+    		throw new InsufficientBalanceException("Your minimum balance is less than 1000\nAfter deduction your balance will be:"+(balance-amount));
+           
     	}
     	else if (amount > balance) {
             System.err.println("Insufficient Balance");
