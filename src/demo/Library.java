@@ -22,19 +22,19 @@ public class Library {
 	             Statement stmt = conn.createStatement();
 	             ResultSet rs = stmt.executeQuery(query); 
 
-	            System.out.println("Connection Successful\n");
+	          
+	             System.out.println("+-----------------+---------------------------+");
+	             System.out.println("| NUMBER          | MEMBER_NAME               |");
+	             System.out.println("+-----------------+---------------------------+");
 
-	            while (rs.next()) {
-	                String number = rs.getString("number");
-	                String name = rs.getString("member_name");
-	                
+	             while (rs.next()) {
+	                 String number = rs.getString("number");
+	                 String name = rs.getString("member_name");
 
-	                System.out.println(
-	                    "number: " + number +
-	                    ",member_name: " + name 
-	                   
-	                );
-	            }
+	                 System.out.printf("| %-15s | %-25s |%n", number, name);
+	             }
+
+	             System.out.println("+-----------------+---------------------------+");
 
 	        } catch (SQLException e) {
 	            e.printStackTrace();

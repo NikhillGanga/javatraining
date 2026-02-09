@@ -25,15 +25,24 @@ public class Driver {
 				long number=s.nextLong();
 				Member member=new Member(name,number);
 		        library.write(member);
+		        System.out.println("=================================");
+				library.read();
+				System.out.println("=================================");
+		        
 			}
 			else if(input.equalsIgnoreCase("R"))
 			{
 				System.out.println("You selected for read operation");
+		        System.out.println("=================================");
 				library.read();
+		        System.out.println("=================================");
 			}
 			else if(input.equalsIgnoreCase("U"))
 			{
 				System.out.println("You selected for update operation");
+				System.out.println("=================================");
+				library.read();
+				System.out.println("=================================");
 				System.out.println("Enter name");
 				String name=s.next();
 				System.out.println("Enter number");
@@ -46,7 +55,11 @@ public class Driver {
 				System.out.println("You selected for delete operation");
 				System.out.println("Enter Number");
 				long number=s.nextLong();
+				System.out.println("=================================");
+				library.read();
+				System.out.println("=================================");
 				library.delete(number);
+				
 			}
 			else if(input.equalsIgnoreCase("E"))
 			{
