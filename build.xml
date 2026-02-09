@@ -6,7 +6,7 @@
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
     <property name="lib.dir" value="lib"/>
-    <property name="Driver.class" value="com.shop.fooddelivery.Driver"/>
+    <property name="hello.class" value="demo.hello"/>
 
     <!-- ===== Clean ===== -->
     <target name="clean">
@@ -35,20 +35,22 @@
     </target>
 
     <!-- ===== JAR ===== -->
-	<!-- ===== JAR ===== -->
-	<target name="jar" depends="compile">
-	    <mkdir dir="${jar.dir}"/>
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+    	
+    	<jar destfile="${jar.dir}/MyJavaProject.jar">
+    		            <!-- Add project classes -->
+    		            <fileset dir="${classes.dir}"/>
 
-	    <jar destfile="${jar.dir}/MyJavaProject.jar"
-	         basedir="${classes.dir}">
-	         
-	        <manifest>
-	            <attribute name="Main-Class" value="${Driver.class}"/>
-	        </manifest>
+    		            <!-- Add JDBC driver classes -->
+    		            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+    	    <manifest>
+    	        <attribute name="Main-Class" value="${hello.class}"/>
+    	    </manifest>
 
-	    </jar>
-	</target>
+    	   
+    	</jar>
 
-   
+    </target>
 
 </project>
