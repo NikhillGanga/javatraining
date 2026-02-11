@@ -1,0 +1,168 @@
+What is enum in Java?
+
+An enum (enumeration) is a special data type that represents a fixed list of named values.
+
+Think:
+
+Days of the week
+
+Status values (ACTIVE, INACTIVE, EXPIRED)
+
+Roles (ADMIN, USER, GUEST)
+
+Directions (NORTH, SOUTH, EAST, WEST)
+
+If the values are known, limited, and not supposed to change, use an enum. Period.
+
+Basic Enum Syntax
+enum Day {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
+}
+
+
+Use it like this:
+
+Day today = Day.MONDAY;
+
+if (today == Day.MONDAY) {
+    System.out.println("Back to work 😭");
+}
+
+
+✅ Type-safe
+✅ Readable
+✅ No invalid values possible
+
+Enum Inside a Class
+public class Driver {
+
+    enum Status {
+        ACTIVE,
+        EXPIRED,
+        TERMINATED
+    }
+
+    public static void main(String[] args) {
+        Status s = Status.ACTIVE;
+        System.out.println(s);
+    }
+}
+
+Enum with Fields and Constructor (Real-World Usage)
+
+Enums are not just constants. They are full-blown classes.
+
+enum PolicyStatus {
+    ACTIVE("Policy is active"),
+    EXPIRED("Policy has expired"),
+    TERMINATED("Policy is terminated");
+
+    private String message;
+
+    PolicyStatus(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+
+
+Usage:
+
+PolicyStatus status = PolicyStatus.EXPIRED;
+System.out.println(status.getMessage());
+
+
+🔥 This is where enums beat constants hard.
+
+Enum in switch Statement
+enum Choice {
+    ADD, SEARCH, COUNT, EXIT
+}
+
+switch (choice) {
+    case ADD:
+        System.out.println("Adding...");
+        break;
+    case SEARCH:
+        System.out.println("Searching...");
+        break;
+    case COUNT:
+        System.out.println("Counting...");
+        break;
+    case EXIT:
+        System.out.println("Bye");
+        break;
+}
+
+
+Clean. No magic numbers. No bugs.
+
+Useful Enum Methods (Built-in)
+PolicyStatus.values();     // returns array of all constants
+PolicyStatus.valueOf("ACTIVE"); // converts String → enum
+status.name();             // returns "ACTIVE"
+status.ordinal();          // index (0-based) — ⚠ avoid in prod
+
+Why Enum is Better Than Constants
+
+❌ Old way:
+
+public static final int ACTIVE = 1;
+public static final int EXPIRED = 2;
+
+
+Problems:
+
+Anyone can pass 99
+
+No compiler safety
+
+Hard to debug
+
+✅ Enum way:
+
+PolicyStatus status = PolicyStatus.ACTIVE;
+
+
+Compiler literally prevents mistakes. That’s real protection.
+
+When You SHOULD Use Enum
+
+Use enum when:
+
+Values are fixed
+
+Values are limited
+
+Meaning matters more than numbers
+
+Examples:
+
+Gender
+
+PolicyType
+
+AccountStatus
+
+UserRole
+
+Menu options
+
+When NOT to Use Enum
+
+Don’t use enum if:
+
+Values change dynamically (from DB)
+
+Values are user-generated
+
+You need unlimited options
