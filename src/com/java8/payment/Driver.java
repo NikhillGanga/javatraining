@@ -41,6 +41,7 @@ public class Driver {
                 String referenceId=generate.get();
          Payment payment=new Payment(paymentId, amount, status,referenceId);
          Function<Payment, String>function=n->n.toString();
+         System.out.println("=========================");
          System.out.println(function.apply(payment));
 		
 	}
