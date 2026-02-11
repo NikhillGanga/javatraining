@@ -49,6 +49,7 @@ public class Driver {
          };
          System.out.println("=========================");
          System.out.println(function.apply(payment));
+         System.out.println("=========================");
 		
 	}
 }
