@@ -113,22 +113,7 @@ public class HibernateTest {
 		
 		
 		//Question-2
-//		Order Placement Logic
-//		Write a Hibernate program to place an order.
-//		Requirements:
-//		Accept:
-//		    prodId
-//		    quantity
-//		Validate:
-//		    Product exists
-//		    Stock is sufficient
-//		Reduce stock
-//		Insert order
-//		Commit transaction
-//		Constraints:
-//		    Use transaction management.
-//		    If stock is insufficient → rollback.
-//		    Stock must never go negative.
+
 		
 //		try {
 //		    int prodId = 1;
@@ -171,44 +156,36 @@ public class HibernateTest {
 		
 		
 		//Question-3:
-//		Avoid Duplicate Order
-//		Modify the above program so that:
-//		If the same product is ordered twice within 5 minutes,
-//		the second order should be rejected.
-		
+
 		try {
 		    long prodId = 1;
 		    int quantity = 2;
 
+		    // 1. Get product
 		    Product product = session.get(Product.class, prodId);
 
 		    if (product == null) {
 		        throw new RuntimeException("Product not found");
 		    }
 
-		    // 1. Fetch last order
-		    Order lastOrder = session.createQuery(
-		        "from Order o where o.product.prodId = :pid " +
-		        "order by o.orderTime desc", Order.class)
-		        .setParameter("pid", prodId)
-		        .setMaxResults(1)
-		        .uniqueResult();
-
-		    // 2. Time comparison
-		    if (lastOrder != null) {
-		        long minutesDiff = Duration.between(
-		                lastOrder.getOrderTime(),
-		                LocalDateTime.now()).toMinutes();
-
-		        if (minutesDiff < 5) {
-		            throw new RuntimeException(
-		                "Duplicate order within 5 minutes not allowed");
-		        }
-		    }
-
-		    // 3. Stock check
+		    // 2. Check stock
 		    if (product.getStock() < quantity) {
 		        throw new RuntimeException("Insufficient stock");
+		    }
+
+		    // 3. Check if any order exists in last 5 minutes
+		    Long orderCount = session.createQuery(
+		        "select count(o) from Order o " +
+		        "where o.product.prodId = :pid " +
+		        "and o.orderTime >= :timeLimit",
+		        Long.class        // 👈 important part
+		    )
+		    .setParameter("pid", prodId)
+		    .setParameter("timeLimit", LocalDateTime.now().minusMinutes(5))
+		    .uniqueResult();
+
+		    if (orderCount != null && orderCount > 0) {
+		        throw new RuntimeException("Duplicate order within 5 minutes not allowed");
 		    }
 
 		    // 4. Reduce stock
@@ -247,54 +224,7 @@ public class HibernateTest {
 		
 		
 		
-		
-		//creating the product and order and inserting it into database table directly
-		
-		//create a product object
-//		Product product = new Product();
-//		product.setProdName("laptop");
-//		product.setProdDesc("Electronics");
-//		product.setPrice(2000);
-//		
-//		//seving it to database
-//		session.persist(product);
-//		
-//		//create a order object
-//		Order order = new Order();
-//		order.setOrderDate(LocalDate.now());
-//		order.setOrderType("new");
-//		order.setProduct(product);
-//		
-//		//saving it to database
-//		session.persist(order);
-//		
-//		//commit transaction
-//		transaction.commit();
-//		
-//		//close the session
-//		session.close();
-		
 
-		
-		
-		
-		
-		//find the product
-//		Product product = session.find(Product.class, 1);
-//		System.out.println(product.getProdName());
-//		
-//		//closing the session
-//		session.close();
-		
-		
-		//fetch all the records from the product table
-		
-//		 SelectionQuery<Product> selectionQuery = (SelectionQuery<Product>) session.createSelectionQuery("from Product", Product.class);
-//		 List<Product> resultList = selectionQuery.getResultList();
-//		 resultList.forEach((p)-> System.out.println(p.getProdName()+p.getPrice()));
-		 
-		// session.close();
-		
 		
 	}
 
